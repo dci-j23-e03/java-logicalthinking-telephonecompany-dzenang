@@ -38,28 +38,24 @@ public class Exercise {
 
     static void calculateCost(String plan, int minutes, String newCustomerInput) {
         // new customer or old customer
-        // new: residential, commercial
-        if (isNewCustomer(newCustomerInput) && RESIDENTIAL.equalsIgnoreCase(plan)) {
-            newCustomerOffer(2);
-        } else if (isNewCustomer(newCustomerInput) && COMMERCIAL.equalsIgnoreCase(plan)) {
-            newCustomerOffer(3);
-        } else {
-            System.out.println("Invalid plan!");
-            return;
-        }
-
         // old: loyalty, resident, commercial
         if (!isNewCustomer(newCustomerInput) && minutes > LOYALTY_LIMIT) {
             printCostEstimation(LOYALTY_COST);
-        } else if (!isNewCustomer(newCustomerInput) && RESIDENTIAL.equalsIgnoreCase(plan)) {
+        } else if (RESIDENTIAL.equalsIgnoreCase(plan)) {
             double cost = calculateResidentialCost(minutes);
             printCostEstimation(cost);
-        } else if (!isNewCustomer(newCustomerInput) && COMMERCIAL.equalsIgnoreCase(plan)) {
+        } else if (COMMERCIAL.equalsIgnoreCase(plan)) {
             printCostEstimation(calculateCommercialCost(minutes));
         } else {
             System.out.println("Invalid plan!");
         }
 
+        // new: residential, commercial
+        if (isNewCustomer(newCustomerInput) && RESIDENTIAL.equalsIgnoreCase(plan)) {
+            newCustomerOffer(2);
+        } else if (isNewCustomer(newCustomerInput) && COMMERCIAL.equalsIgnoreCase(plan)) {
+            newCustomerOffer(3);
+        }
     }
 
     static boolean isNewCustomer(String newCustomerInput) {
